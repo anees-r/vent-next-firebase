@@ -27,6 +27,15 @@ html.dark img, html.dark video {
   filter: invert(1) hue-rotate(180deg); /* re-invert them */
 }
 
+.custom-progress-bar {
+  background-color: #9333ea !important; /* your desired color */
+}
+
+.Toastify__toast--success .Toastify__toast-icon {
+  svg {
+    fill: #9333ea !important; /* green */
+  }
+}
 
 body {
   /* background-color: white; */

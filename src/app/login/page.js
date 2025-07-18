@@ -21,7 +21,7 @@ const Login = () => {
   useEffect(() => {
     if (user.username) {
       setIsLoggingIn(false);
-      router.push("/");
+      router.push("/home");
     }
   }, [user]);
 
@@ -39,17 +39,25 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
 
-      toast.success("Login successful.");
+      toast.success("Login successful.", {
+        progressClassName: "custom-progress-bar",
+      });
     } catch (error) {
       setIsLoggingIn(false);
       toast.error(FriendlyFirebaseError(error));
     }
   };
   return (
-    <div>
+    <>
       {isLoggingIn && <MyLoader />}
-      <LogInSignUpForm type={"login"} handleSubmit={handleSubmit} />
-    </div>
+      <div className="h-screen">
+        <LogInSignUpForm
+          type={"login"}
+          handleSubmit={handleSubmit}
+          setIsLoggingIn={setIsLoggingIn}
+        />
+      </div>
+    </>
   );
 };
 

@@ -22,7 +22,7 @@ const SignUp = () => {
   useEffect(() => {
     if (user.name) {
       setIsSigningUp(false);
-      router.push("/");
+      router.push("/home");
     }
   }, [user]);
 
@@ -51,7 +51,9 @@ const SignUp = () => {
         uid: userCredentials.user.uid,
       });
 
-      toast.success("Signup successful.");
+      toast.success("Signup successful.", {
+        progressClassName: "custom-progress-bar",
+      });
     } catch (error) {
       setIsSigningUp(false);
       toast.error(FriendlyFirebaseError(error));
@@ -61,9 +63,12 @@ const SignUp = () => {
   return (
     <>
       {isSigningUp && <MyLoader />}
-      <div>
-        {JSON.stringify(user)}
-        <LogInSignUpForm type={"signup"} handleSubmit={handleSubmit} />
+      <div className="h-screen">
+        <LogInSignUpForm
+          type={"signup"}
+          handleSubmit={handleSubmit}
+          setIsSigningUp={setIsSigningUp}
+        />
       </div>
     </>
   );

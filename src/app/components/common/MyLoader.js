@@ -29,3 +29,5 @@ export default function MyLoader() {
     </div>
   );
 }
+
+export const Loader = GradientCircularProgress;

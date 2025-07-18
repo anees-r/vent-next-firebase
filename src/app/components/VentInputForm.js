@@ -1,8 +1,37 @@
-"use client"
+"use client";
 import React, { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "../../../firebase";
+import { toast } from "react-toastify";
 
 const VentInputForm = () => {
   const [ventText, setVentText] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+
+  const { user } = useAuth();
+
+  const handleSaveVent = async () => {
+    try {
+      setIsSaving(true);
+      await addDoc(collection(db, "posts"), {
+        name: user.name,
+        username: user.username,
+        text: ventText,
+        timestamp: serverTimestamp(),
+      });
+      
+      toast.success("Post created successfully.", {
+        progressClassName: "custom-progress-bar",
+      });
+
+      setIsSaving(false);
+      setVentText("");
+    } catch (error) {
+      setIsSaving(false);
+      toast.error("Error saving post.");
+    }
+  };
 
   return (
     <>
@@ -17,7 +46,11 @@ const VentInputForm = () => {
             setVentText(e.target.value);
           }}
         />
-        <button className="h-[35px] w-[100px] bg-purple-600 text-white rounded-md mt-2 cursor-pointer hover:bg-purple-500 transtion">
+        <button
+          className="h-[35px] w-[100px] bg-purple-600 text-white rounded-md mt-2 cursor-pointer hover:bg-purple-500 transtion disabled:bg-purple-400 disabled:cursor-not-allowed"
+          onClick={handleSaveVent}
+          disabled={!ventText || isSaving}
+        >
           Vent
         </button>
 
