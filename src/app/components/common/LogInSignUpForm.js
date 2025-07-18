@@ -13,7 +13,7 @@ const LogInSignUpForm = (props) => {
   const [password, setPassword] = useState("");
 
   return (
-    <div className="h-screen flex justify-center items-center p-15">
+    <div className="h-screen flex justify-center items-center p-10">
       <div className="bg-gray-100 w-[500px] h-fit rounded-2xl p-5 flex flex-col justify-center items-center gap-5 shadow-md">
         <h1 className="text-center text-xl">
           {type === "S" ? "Sign Up" : "Log In"}
@@ -23,6 +23,7 @@ const LogInSignUpForm = (props) => {
             <input
               type="text"
               className="h-[35px] w-full bg-white p-3 outline-none rounded-md border-0 focus:border-2 focus:border-purple-300"
+              id="name"
               placeholder="Name"
               value={name}
               onChange={(e) => {
@@ -33,6 +34,7 @@ const LogInSignUpForm = (props) => {
           <input
             type="email"
             className="h-[35px] w-full bg-white p-3 outline-none rounded-md border-0 focus:border-2 focus:border-purple-300"
+            id="email"
             placeholder="Email"
             value={email}
             onChange={(e) => {
@@ -43,6 +45,7 @@ const LogInSignUpForm = (props) => {
             <input
               type={hidePass ? "password" : "text"}
               className="outline-none rounded w-full"
+              id="password"
               placeholder="Password"
               value={password}
               onChange={(e) => {

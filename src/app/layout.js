@@ -1,7 +1,11 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import MyNav from "./components/common/MyNav";
+import MyNav from "./components/MyNav";
 import MyFooter from "./components/common/MyFooter";
+import { ThemeProvider } from "next-themes";
+import { AuthProvider } from "./context/AuthContext";
+import { ToastContainer, Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +19,8 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Vent",
-  description: "vent is secure and private platform where you can unwind and pen down your thoughts to clear your mind clutter. The thoughts written by users are private to their account and can not be seen by others. So write you messes, voices and tensions away. Unravel and say hello to a more clearer state of mind.",
+  description:
+    "vent is secure and private platform where you can unwind and pen down your thoughts to clear your mind clutter. The thoughts written by users are private to their account and can not be seen by others. So write you messes, voices and tensions away. Unravel and say hello to a more clearer state of mind.",
 };
 
 export default function RootLayout({ children }) {
@@ -24,9 +29,26 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <MyNav/>
-        {children}
-        <MyFooter/>
+        {/* <ThemeProvider attribute="class" defaultTheme="light"> */}
+        <AuthProvider>
+          <MyNav />
+          <ToastContainer
+            position="top-right"
+            autoClose={2500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition={Flip}
+          />
+          {children}
+          <MyFooter />
+        </AuthProvider>
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );

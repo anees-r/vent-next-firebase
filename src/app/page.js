@@ -1,9 +1,9 @@
-import MyHome from "./components/common/MyHome";
+import MyHome from "./components/MyHome";
 
 export default function Home() {
   return (
     <>
-      <div className="p-15">
+      <div className="py-15 px-10 overflow-hidden">
         <MyHome/>
       </div>
       
